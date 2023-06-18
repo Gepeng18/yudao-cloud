@@ -58,6 +58,7 @@ public class SocialUserServiceImpl implements SocialUserService {
 
     @Override
     public SocialUserDO authSocialUser(Integer type, String code, String state) {
+        // 【只有绑定流程中，从DB根据code和state查询这个逻辑是有效的】，因为socialUser表中已经有用户了，这里直接返回socialUser即可。
         // 优先从 DB 中获取，因为 code 有且可以使用一次。
         // 在社交登录时，当未绑定 User 时，需要绑定登录，此时需要 code 使用两次
         SocialUserDO socialUser = socialUserMapper.selectByTypeAndCodeAnState(type, code, state);
