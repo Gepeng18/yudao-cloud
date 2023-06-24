@@ -90,7 +90,7 @@ spring:
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
-          name-server: 192.168.31.147:9876 # RocketMQ Namesrv 地址
+          name-server: 192.168.31.87:9876 # RocketMQ Namesrv 地址
         default: # 默认 bindings 全局配置
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: infra_producer_group # 生产者分组
@@ -133,7 +133,7 @@ yudao:
     constants-class-list:
       - cn.iocoder.yudao.module.infra.enums.ErrorCodeConstants
   tenant: # 多租户相关配置项
-    enable: false
+    enable: true
     ignore-urls:
       - /admin-api/infra/file/*/get/** # 获取图片，和租户无关
     ignore-tables:

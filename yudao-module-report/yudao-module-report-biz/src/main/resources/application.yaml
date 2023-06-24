@@ -93,6 +93,6 @@ yudao:
     constants-class-list:
       - cn.iocoder.yudao.module.report.enums.ErrorCodeConstants
   tenant: # 多租户相关配置项
-    enable: false
+    enable: true
 
 debug: false
