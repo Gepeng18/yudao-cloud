@@ -89,6 +89,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
         wordDOs = filterList(wordDOs, word -> word.getStatus().equals(CommonStatusEnum.ENABLE.getStatus()));
 
         // 初始化默认的 defaultSensitiveWordTrie
+        // 默认的 defaultSensitiveWordTrie 包含所有的单词
         this.defaultSensitiveWordTrie = new SimpleTrie(CollectionUtils.convertList(wordDOs, SensitiveWordDO::getName));
 
         // 初始化 tagSensitiveWordTries
@@ -100,6 +101,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
             word.getTags().forEach(tag -> tagWords.put(tag, word.getName()));
         }
         // 添加到 tagSensitiveWordTries 中
+        // 每个 tag 对应的词
         Map<String, SimpleTrie> tagSensitiveWordTries = new HashMap<>();
         tagWords.asMap().forEach((tag, words) -> tagSensitiveWordTries.put(tag, new SimpleTrie(words)));
         this.tagSensitiveWordTries = tagSensitiveWordTries;
