@@ -168,6 +168,9 @@ public class PermissionServiceImpl implements PermissionService {
         return menuService.getMenuListFromCache(menuIds, menuTypes, menusStatuses);
     }
 
+    /**
+     * 获取所有的用户角色id，并且按照 roleStatuses 进行过滤
+     */
     @Override
     public Set<Long> getUserRoleIdsFromCache(Long userId, Collection<Integer> roleStatuses) {
         Set<Long> cacheRoleIds = userRoleCache.get(userId);
