@@ -46,21 +46,28 @@ public class StringDesensitizeSerializer extends StdSerializer<String> implement
         }
         // 创建一个 StringDesensitizeSerializer 对象，使用 DesensitizeBy 对应的处理器
         StringDesensitizeSerializer serializer = new StringDesensitizeSerializer();
+        // 将注解设置到contextual中，这样DesensitizationHandler就可以直接在下面的serialize方法中被使用，这个DesensitizationHandler
+        // 可能是 BankCardDesensitization、CarLicenseDesensitization等
         serializer.setDesensitizationHandler(Singleton.get(annotation.handler()));
         return serializer;
     }
 
+    /**
+     * 序列化方法
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializerProvider) throws IOException {
+        // 1、如果value是空的，则写null
         if (StrUtil.isBlank(value)) {
             gen.writeNull();
             return;
         }
+        // 2、反射获取 field
         // 获取序列化字段
         Field field = getField(gen);
 
-        // 自定义处理器
+        // 3、获取该字段上的DesensitizeBy注解列表，获取每个注解对应的handler，对字段的值进行desensitize
         DesensitizeBy[] annotations = AnnotationUtil.getCombinationAnnotations(field, DesensitizeBy.class);
         if (ArrayUtil.isEmpty(annotations)) {
             gen.writeString(value);
