@@ -24,6 +24,7 @@ import java.util.List;
  * 根据请求的 header[version] 匹配，筛选满足 metadata[version] 相等的服务实例列表，然后随机 + 权重进行选择一个
  * 1. 假如请求的 header[version] 为空，则不进行筛选，所有服务实例都进行选择
  * 2. 如果 metadata[version] 都不相等，则不进行筛选，所有服务实例都进行选择
+ * 再基于 tag 过滤实例列表，从header中取出tag，如果tag为空，则不进行筛选，如果不为空，则匹配instance中的tag字段instance_tag，和header中的tag相等则选择
  *
  * 注意，考虑到实现的简易，它的权重是使用 Nacos 的 nacos.weight，所以随机 + 权重也是基于 {@link NacosBalancer} 筛选。
  * 也就是说，如果你不使用 Nacos 作为注册中心，需要微调一下筛选的实现逻辑

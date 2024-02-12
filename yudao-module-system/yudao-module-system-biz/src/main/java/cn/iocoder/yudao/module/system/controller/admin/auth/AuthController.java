@@ -93,6 +93,10 @@ public class AuthController {
         return success(authService.refreshToken(refreshToken));
     }
 
+    /**
+     * 1、根据用户获取角色（用户-角色表），并过滤禁用的角色
+     * 2、根据角色获取菜单（角色-菜单表），并过滤禁用的菜单
+     */
     @GetMapping("/get-permission-info")
     @Operation(summary = "获取登录用户的权限信息")
     public CommonResult<AuthPermissionInfoRespVO> getPermissionInfo() {

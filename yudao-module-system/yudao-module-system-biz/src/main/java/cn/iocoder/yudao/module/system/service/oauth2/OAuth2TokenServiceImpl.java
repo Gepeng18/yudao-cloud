@@ -54,6 +54,12 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
         return createOAuth2AccessToken(refreshTokenDO, clientDO);
     }
 
+    /**
+     * refresh的时候，只校验了三个条件
+     * 1. clientId是否存在
+     * 2. clientId是否和 refreshToken的客户端编号匹配
+     * 3. refreshToken是否过期
+     */
     @Override
     public OAuth2AccessTokenDO refreshAccessToken(String refreshToken, String clientId) {
         // 查询访问令牌
